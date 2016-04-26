@@ -40,6 +40,8 @@ public class MainPanel extends JPanel implements ChangeListener{
  
  JSlider sliderOfHueristic;
   JLabel labelOfHueristic;
+  JSlider sliderOfTimer;
+  JLabel labelOfTimer;
  
  ArrayList<JButton> mapButtons;// = new ArrayList();
  ArrayList<String> maps = new ArrayList();
@@ -76,7 +78,7 @@ public class MainPanel extends JPanel implements ChangeListener{
         mapButtonPanel.setBounds(840,20,120,400);
         mapButtonPanel.setBackground(Color.yellow);
         //add(mapButtonPanel);
-        label = new JLabel("finding path..."); 
+        label = new JLabel("<html><h2><font color='black'>hueristic is from zero (off) to 100 (full). timer sets delay. press start </font><h2></html>"); 
         start = new JButton("start");
          save = new JButton("save map");
         zeke = new JButton("smoothing demo");
@@ -87,7 +89,7 @@ public class MainPanel extends JPanel implements ChangeListener{
        // mapButtonPanel.setBounds(840,20,120,400);
        // mapButtonPanel.setBackground(Color.yellow);
         gameBoard.setBounds(0,0,800,800);
-        label.setBounds(340,840,260,40);
+        label.setBounds(100,900, 600,40);
         start.setBounds(620,840,80,40);
         save.setBounds(720,860,120,40);
         textArea.setBounds(720,810,120,30);
@@ -98,14 +100,23 @@ public class MainPanel extends JPanel implements ChangeListener{
         ImageIcon monkeyPic = new ImageIcon(zekename);
         //zeke.setIcon(monkeyPic);
        // zeke.addActionListener(this);  // moved to controller class
+       ;
+  ;
+    sliderOfTimer = new JSlider(JSlider.HORIZONTAL, 0, 2000, gameBoard.controller.timerSetting);
+   // sliderOfHueristic.setBackground(monkeyPanel.randomColor(monkeyPanel.theme));
+    sliderOfTimer.addChangeListener(this);
+    labelOfTimer = new JLabel("<html><h2><font color='black'>Timer: </font><font color='red'>" + gameBoard.controller.timerSetting + "</font><h2></html>");
+       sliderOfTimer.setBounds(300,810, 300,40);
+        labelOfTimer.setBounds(120,810, 160,40);
        
-    
-    sliderOfHueristic = new JSlider(JSlider.HORIZONTAL, 0, 100, 6);
+       add(sliderOfTimer);
+        add(labelOfTimer);
+    sliderOfHueristic = new JSlider(JSlider.HORIZONTAL, 0, 1000, (int)gameBoard.controller.hMultiplier);
    // sliderOfHueristic.setBackground(monkeyPanel.randomColor(monkeyPanel.theme));
     sliderOfHueristic.addChangeListener(this);
     labelOfHueristic = new JLabel("<html><h2><font color='black'>Hueristic: </font><font color='red'>" + gameBoard.controller.hMultiplier + "</font><h2></html>");
-       sliderOfHueristic.setBounds(300,880, 300,40);
-        labelOfHueristic.setBounds(120,880, 160,40);
+       sliderOfHueristic.setBounds(300,860, 300,40);
+        labelOfHueristic.setBounds(120,860, 160,40);
        
        add(sliderOfHueristic);
         add(labelOfHueristic);
@@ -284,6 +295,19 @@ public class MainPanel extends JPanel implements ChangeListener{
             //monkeyPanel.trustTheMonkeysLabel.setText("<html><h2><font color='black'>Merchants: </font><font color='red'>" + valueReturned + "</font><h2></html>");
           //  monkeyPanel.startButton.setVisible(true);
         }
+        
+        
+         if (source == sliderOfTimer) {
+            gameBoard.controller.timerSetting = source.getValue();
+            labelOfTimer.setText("<html><h2><font color='black'>Timer: </font><font color='red'>" + gameBoard.controller.timerSetting + "</font><h2></html>");
+            //monkeyPanel.trustTheMonkeysLabel.setText("<html><h2><font color='black'>Merchants: </font><font color='red'>" + valueReturned + "</font><h2></html>");
+          //  monkeyPanel.startButton.setVisible(true);
+        }
+        
+        
+        
+        
+        
     }
 
     
